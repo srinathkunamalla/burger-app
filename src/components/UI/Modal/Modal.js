@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import classes from "./Modal.module.css";
 import Aux from "../../../hoc/Aux";
 import Backdrop from "../Backdrop/Backdrop";
-import { renderIntoDocument } from "react-dom/test-utils";
 
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     componentWillUpdate() {
@@ -17,7 +16,8 @@ class Modal extends Component {
   render() {
     return (
       <Aux>
-        <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
+        <Backdrop show={this.props.show} 
+        clicked={this.props.modalClosed} />
         <div
           className={classes.Modal}
           style={{
@@ -25,7 +25,7 @@ class Modal extends Component {
             opacity: this.props.show ? "1" : "0",
           }}
         >
-          {props.children}
+          {this.props.children}
         </div>
       </Aux>
     );
